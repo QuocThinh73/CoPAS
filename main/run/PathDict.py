@@ -3,7 +3,7 @@
 
 
 # Thư mục gốc chứa data
-dataroot        = "D:/CoPAS"
+dataroot        = "/content/CoPAS"
 
 # Định nghĩa các dataset cấu hình tại đây
 dataset_dict = {
@@ -28,13 +28,13 @@ dataset_dict = {
 }
 
 # Thư mục chứa script chạy
-CodePath        = "D:/CoPAS/main/run"
+CodePath        = "/content/CoPAS/main/run"
 
 # Thư mục lưu kết quả đánh giá của bác sĩ (nếu có)
-DocEvlPath      = "D:/CoPAS/doctor_eval"
+DocEvlPath      = "/content/CoPAS/doctor_eval"
 
 # Thư mục lưu experiment (logs, checkpoints,…)
-ExpFolder       = "D:/CoPAS/experiments"
+ExpFolder       = "/content/CoPAS/experiments"
 
 # Thư mục chứa pretrained weights (nếu dùng)
-pretrain_folder = "D:/CoPAS/pretrained"
+pretrain_folder = "/content/CoPAS/pretrained"
