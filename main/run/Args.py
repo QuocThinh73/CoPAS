@@ -60,7 +60,8 @@ class Arguments():
         self.Augmentor = True
         self.augrate = 4
         self.use_cache = False
-        self.num_workers = 7
+        # self.num_workers = 7
+        self.num_workers = 0
         self.iters_to_accumulate = 1 # accumulate gradient for how many batches
         self.data_balance = False
         self.debug = False

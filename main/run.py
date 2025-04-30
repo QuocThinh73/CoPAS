@@ -1,3 +1,6 @@
+from multiprocessing import freeze_support
+freeze_support()
+
 print("initiating")
 import sys
 a = ["--gpu", "0", "--epoch", "100", "--batch_size", "2", "--lr", "5e-5"]
@@ -15,15 +18,22 @@ from model.model import Multi_view_Knee
 from data.dataloader import test_ds_dict
 from val_with_save import val_with_save
 
-print("running")
-if args.test:
-    assert args.weight_path != "", "Please specify the weight path"
-    model = Multi_view_Knee()
-    model_file = args.weight_path
-    model.load_state_dict(torch.load(model_file), strict=False)
-    model = model.float()
-    test_dataset = test_ds_dict['Internal']
-    # show_CAM(net=model, dataset=test_dataset)
-    val_with_save(model, test_dataset)
-else:
-    run()
+def main():
+    print("running")
+    if args.test:
+        assert args.weight_path != "", "Please specify the weight path"
+        model = Multi_view_Knee()
+        model_file = args.weight_path
+        # model.load_state_dict(torch.load(model_file), strict=False)
+        state_dict = torch.load(model_file, map_location=torch.device('cpu'))
+        model.load_state_dict(state_dict, strict=False)
+        model = model.float()
+        test_dataset = test_ds_dict['Internal']
+        # show_CAM(net=model, dataset=test_dataset)
+        val_with_save(model, test_dataset)
+    else:
+        run()
+        
+        
+if __name__ == "__main__":
+    main()

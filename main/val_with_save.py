@@ -130,7 +130,8 @@ def val_with_save(net, test_dataset):
     logging.getLogger().addHandler(fh)
     logging.info("args = %s", args)
 
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=16, num_workers=16, shuffle=False)
+    # test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=16, num_workers=16, shuffle=False)
+    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=16, num_workers=args.num_workers, shuffle=False)
 
     if args.half:
         net.half()

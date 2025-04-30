@@ -186,11 +186,20 @@ class Multi_view_Knee(nn.Module):
         self.class_num = kargs.ClassNum
         self.para_device = parallel_device
         self.branch = kargs.active_branch
-        # set parallel devices
-        if torch.cuda.device_count() == 3 and self.para_device:
-            self.device_list = ["cuda:%d"%x for x in range(torch.cuda.device_count())]
+        # # set parallel devices
+        # if torch.cuda.device_count() == 3 and self.para_device:
+        #     self.device_list = ["cuda:%d"%x for x in range(torch.cuda.device_count())]
+        # else:
+        #     self.device_list = ["cuda:0"]*3
+        # nếu có CUDA thì dùng GPU, còn không thì dùng CPU
+        if torch.cuda.is_available() and torch.cuda.device_count() >= 1:
+            if torch.cuda.device_count() >= 3 and self.para_device:
+                self.device_list = [f"cuda:{i}" for i in range(torch.cuda.device_count())]
+            else:
+                self.device_list = ["cuda:0"] * 3
         else:
-            self.device_list = ["cuda:0"]*3
+            # chỉ có CPU
+            self.device_list = ["cpu"] * 3
         self.dropout_rate = 0.05
         self.backbone = kargs.backbone
         self.module_list = []
